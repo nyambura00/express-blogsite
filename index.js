@@ -1,16 +1,19 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
-const path = require('path');
 const ejs = require('ejs');
+const bodyParser = require('body-parser');
+
+const BlogPost = require('./models/BlogPost');
+
+const PORT = process.env.PORT || 3000;
 
 //setup dotenv
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
-
 app.use(express.static('/public'));
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -26,6 +29,15 @@ app.get('/contact', (req, res) => {
 
 app.get('/post', (req, res) => {
     res.render('post');
+})
+
+app.get('/posts/new', (req,res)=>{
+    res.render('createpost');
+})
+
+app.post('/post/store', async (req,res)=>{
+    await BlogPost.create(req.body)
+        res.redirect('/');
 })
 
 app.listen(process.env.PORT, () => {
