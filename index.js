@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 3000;
 //setup dotenv
 dotenv.config();
 
+const fileUpload = require('express-fileupload')
+app.use(fileUpload());
+
 app.use(express.static('/public'));
 app.set('view engine', ejs);
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,8 +41,15 @@ app.get('/posts/new', (req,res)=>{
 })
 
 app.post('/post/store', async (req,res)=>{
-    await BlogPost.create(req.body)
-        res.redirect('/');
+    let image = req.files.image;
+        image.mv(path.resolve(__dirname,'public/img',image.name),//move the file elsewhere on your server and name
+        async (error)=>{
+            await BlogPost.create({
+                ...req.body,
+                image: '/img/' + image.name
+            })
+            res.redirect('/');
+        })
 })
 
 app.listen(process.env.PORT, () => {

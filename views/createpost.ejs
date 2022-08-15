@@ -30,7 +30,7 @@
                             <!-- To make this form functional, sign up at-->
                             <!-- https://startbootstrap.com/solution/contact-forms-->
                             <!-- to get an API token!-->
-                            <form method="POST" action="/posts/store">
+                            <form method="POST" action="/posts/store" enctype="multipart/form-data">
                                 <div class="form-floating">
                                     <label for="name">Title</label>
                                     <input class="form-control" id="title" type="text" placeholder="Input post title" name="title"/>
@@ -38,6 +38,13 @@
                                 <div class="form-floating">
                                     <label for="content">Content</label>
                                     <textarea class="form-control" id="content" placeholder="Input post content" style="height: 12rem" name="content"></textarea>
+                                </div>
+                                <div class="control-group">
+                                    <div class="form-group floating-label-form-group controls">
+                                        <label>Image</label>
+                                        <input type="file" class="form-control" id="image"
+                                        name="image">
+                                    </div>
                                 </div>
                                 <br />
                                 <!-- Submit success message-->
