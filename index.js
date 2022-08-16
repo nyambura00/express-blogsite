@@ -8,15 +8,29 @@ const BlogPost = require('./models/BlogPost');
 
 const PORT = process.env.PORT || 3000;
 
+app.use(express.static('/public'));
+app.set('view engine', ejs);
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const customMiddleware = (req, res, next) => {
+    console.log('Middleware');
+    next();
+}
+app.use(customMiddleware);
+
 //setup dotenv
 dotenv.config();
 
 const fileUpload = require('express-fileupload')
 app.use(fileUpload());
 
-app.use(express.static('/public'));
-app.set('view engine', ejs);
-app.use(bodyParser.urlencoded({ extended: true }));
+const validateMiddleWare = (req,res,next)=>{
+    if(req.files == null || req.body.title == null || req.body.content == null){
+        return res.redirect('/posts/new')
+    }
+    next()
+}
+app.use('/posts/store', validateMiddleWare)
 
 app.get('/', async (req, res) => {
     const blogposts = await BlogPost.find({})
@@ -31,7 +45,7 @@ app.get('/contact', (req, res) => {
     res.render('contact');
 })
 
-app.get('/post/:id', (req, res) => {
+app.get('/post/:id', async (req, res) => {
     const blogPost = await BlogPost.findById(req.params.id);
     res.render('post', {blogPost});
 })
