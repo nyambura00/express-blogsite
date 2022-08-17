@@ -1,3 +1,7 @@
 module.exports = (req, res) => {
-    res.render('createpost');
+    if(req.session.userId){
+        res.render('createpost');
+    }else{
+        res.render('/auth/login')
+    }
 }   
