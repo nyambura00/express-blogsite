@@ -7,6 +7,7 @@ module.exports = (req,res)=>{
             const validationErrors = Object.keys(error.errors).map(key => error.errors[key].message) //handling error
             // req.session.validationErrors = validationErrors;
             req.flash('validationErrors',validationErrors)
+            req.flash('data',req.body) // persisting request form data despite errors
             return res.redirect('/auth/register')
         }
         res.redirect('/');
