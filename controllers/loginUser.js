@@ -14,6 +14,10 @@ module.exports = (req, res) =>{
                 res.redirect('/auth/login')
             }
             })
+        }else if(error){
+            const validationErrors = Object.keys(error.errors).map(key => error.errors[key].message); //handling error
+            req.flash('validationErrors',validationErrors);
+            return res.redirect('/auth/login') 
         }
         else{
             res.redirect('/auth/login')
