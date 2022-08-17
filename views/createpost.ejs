@@ -47,6 +47,13 @@
                                 <div class="form-floating">
                                     <label for="content">Content</label>
                                     <textarea class="form-control" id="content" placeholder="Input post content" style="height: 12rem" name="content" value="<%=content %>"></textarea>
+                                    <script>
+                                        $('#body').summernote({
+                                        placeholder: 'Hello bootstrap 4',
+                                        tabsize: 2,
+                                        height: 200
+                                        });
+                                    </script>
                                 </div>
                                 <div class="control-group">
                                     <div class="form-group floating-label-form-group controls">

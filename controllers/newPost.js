@@ -11,6 +11,7 @@ module.exports = (req, res) => {
 
     if(req.session.userId){
         res.render('createpost', {
+            createPost: true,
             errors: req.flash('validationErrors'),
             title: title,
             content: content,
