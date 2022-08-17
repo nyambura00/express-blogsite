@@ -6,7 +6,11 @@ var uniqueValidator = require('mongoose-unique-validator');
 const blogPostSchema = new Schema({
     title: String,
     content: String,
-    username: String,
+    userid: {
+        type: mongoose.Schema.Types.ObjectId, // a valid mongo object id
+        ref: 'User', // referencing User collection in the document
+        required: true
+    },
     datePosted:{ /* 'default' object instance */
         type: Date,
         default: new Date()
