@@ -15,6 +15,9 @@
   ],
   "author": "Winnie Nyambura",
   "license": "ISC",
+  "engines":{
+    "node": "v18.6.0"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",

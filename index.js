@@ -4,13 +4,15 @@ const dotenv = require('dotenv');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
+if (PORT == null || PORT == "") {
+    PORT = 4000;
+}
 
 const newPostController = require('./controllers/newPost');
 const homeController = require('./controllers/home');
 const storePostController = require('./controllers/storePost');
 const getPostController = require('./controllers/getPost');
-
 
 const validateMiddleWare = require('./middleware/validationMiddleware');
 const fileUpload = require('express-fileupload');
@@ -28,9 +30,17 @@ const authMiddleware = require('./middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
 
 const flash = require('connect-flash');
+const { default: mongoose } = require('mongoose');
 
 //setup dotenv
 dotenv.config();
+
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true}, function(err){
+    if(err){
+        throw err;
+    }
+    console.log('Connected to MongoDB Atlas');
+});
 
 app.set('view engine', ejs);
 
