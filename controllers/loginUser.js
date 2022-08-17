@@ -11,6 +11,7 @@ module.exports = (req, res) =>{
                 res.redirect('/')
             }
             else{
+                req.flash('validationErrors', 'Invalid username or password')
                 res.redirect('/auth/login')
             }
             })
