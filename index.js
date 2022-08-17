@@ -27,6 +27,8 @@ const expressSession = require('express-session');
 const authMiddleware = require('./middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
 
+const flash = require('connect-flash');
+
 //setup dotenv
 dotenv.config();
 
@@ -54,6 +56,8 @@ app.use("*", (req, res, next) => {
 });
 
 app.use('/posts/store', validateMiddleWare)
+
+app.use(flash());
 
 app.get('/', homeController);
 

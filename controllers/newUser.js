@@ -1,5 +1,6 @@
 module.exports = (req, res) =>{
     res.render('register', { // render register.ejs
-        errors: req.session.validationErrors //handling validation error
+        // errors: req.session.validationErrors //handling validation error
+        errors: flash('validationErrors')
     }) 
 }
