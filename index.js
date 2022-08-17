@@ -11,15 +11,23 @@ const homeController = require('./controllers/home');
 const storePostController = require('./controllers/storePost');
 const getPostController = require('./controllers/getPost');
 
+const loginController = require('./controllers/login');
+const newUserController = require('./controllers/newUser');
+
+const loginUserController = require('./controllers/loginUser');
+const storeUserController = require('./controllers/storeUser');
+
+const expressSession = require('express-session');
+
+
+app.get('/auth/login', loginController);
+app.get('/auth/register', newUserController);
+app.post('/users/login',loginUserController)
+app.post('/users/register', storeUserController);
+
 app.use(express.static('/public'));
 app.set('view engine', ejs);
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const customMiddleware = (req, res, next) => {
-    console.log('Middleware');
-    next();
-}
-app.use(customMiddleware);
 
 //setup dotenv
 dotenv.config();
