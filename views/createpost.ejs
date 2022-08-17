@@ -9,7 +9,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="page-heading">
-                            <h1>Contact Me</h1>
+                            <h1>Create Post</h1>
                             <span class="subheading">Have questions? I have answers.</span>
                         </div>
                     </div>
@@ -30,20 +30,29 @@
                             <!-- To make this form functional, sign up at-->
                             <!-- https://startbootstrap.com/solution/contact-forms-->
                             <!-- to get an API token!-->
+
+                            <!--visualizing validation errors-->
+                            <% if(errors != null && errors.length > 0){ %>
+                                <ul class="list-group"></ul>
+                                    <% for (var i = 0; i < errors.length; i++) { %>
+                                        <li class="list-group-item list-group-item-danger"><%= errors[i] %></li>
+                                    <% } %>
+                                </ul>
+                            <% } %>
                             <form method="POST" action="/posts/store" enctype="multipart/form-data">
                                 <div class="form-floating">
                                     <label for="name">Title</label>
-                                    <input class="form-control" id="title" type="text" placeholder="Input post title" name="title"/>
+                                    <input class="form-control" id="title" type="text" placeholder="Input post title" name="title" value="<%=title %>"/>
                                 </div>
                                 <div class="form-floating">
                                     <label for="content">Content</label>
-                                    <textarea class="form-control" id="content" placeholder="Input post content" style="height: 12rem" name="content"></textarea>
+                                    <textarea class="form-control" id="content" placeholder="Input post content" style="height: 12rem" name="content" value="<%=content %>"></textarea>
                                 </div>
                                 <div class="control-group">
                                     <div class="form-group floating-label-form-group controls">
                                         <label>Image</label>
                                         <input type="file" class="form-control" id="image"
-                                        name="image">
+                                        name="image" value="<%=image %>">
                                     </div>
                                 </div>
                                 <br />
@@ -65,7 +74,7 @@
                                 <!-- an error submitting the form-->
                                 <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                                 <!-- Submit Button-->
-                                <button class="btn btn-primary text-uppercase disabled" id="submitButton" type="submit">Send</button>
+                                <button class="btn btn-primary text-uppercase disabled" id="submitButton" type="submit">Create Post</button>
                             </form>
                         </div>
                     </div>
